@@ -8,11 +8,11 @@ R = np.matrix([[-1,-1,-1,-1,0,-1],
                [-1,0,0,-1,-1,100],
                [-1,0,-1,-1,0,100]])
 
-Q=np.matrix(np.zeros([6,6]))
+Q = np.matrix(np.zeros([6,6]))
 
 alpha = 0.8
 
-initial_state=1
+initial_state = 1
 
 def available_actions(state):
     curr_state_row = R[state,]
@@ -36,7 +36,7 @@ def update (current_state, action, alpha):
         max_index = int(max_index)
     max_value = Q[action, max_index]
 
-    #Q learning formula
+    # Q learning formula
     Q[current_state,action] = R[current_state, action] + alpha*max_value
 
 update(initial_state, action, alpha)
@@ -53,14 +53,12 @@ print(Q/np.max(Q)* 100)
 
 # TESTING
 # Goal state = 5
-
-
 current_state = 3
 steps = [current_state]
 while current_state != 5:
     next_step_index = np.where(Q[current_state,]==np.max(Q[current_state,]))[1]
     if next_step_index.shape[0] > 1:
-        next_step_index=int(np.random.choice(next_step_index, size=1))
+        next_step_index = int(np.random.choice(next_step_index, size=1))
     else:
         next_step_index = int(next_step_index)
     steps.append(next_step_index)
